@@ -56,14 +56,11 @@ spec:
           - --monitoringPort=15014
           - --validation-port=9443
           - --sinkAuthMode=GOOGLE
-          - --sinkAddress=meshconfig.googleapis.com:443
-          - --sinkMeta=project_id=$(PROJECT_ID),sds_path=unix:/etc/istio/proxy/SDS
+          - --sinkAddress=$(MESH_CONFIG_ADDR)
+          - --sinkMeta=project_id=$(PROJECT_ID),sds_path=unix:/etc/istio/proxy/SDS,trace=$(TRACE_OWNER_ID)
           - --excludedResourceKinds=Pod,Node,Endpoints
           - --enableServiceDiscovery
           volumeMounts:
-          - name: config
-            mountPath: /etc/config
-            readOnly: true
           - name: mesh-config
             mountPath: /etc/mesh-config
             readOnly: true
